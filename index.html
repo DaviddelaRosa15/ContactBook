@@ -33,6 +33,9 @@
 
     <div class="collapse mt-3 mb-3" id="collapseExample">
       <div class="card card-body">
+        <div class="card-title" mb-2>
+          <h3 class="text-center">Creacion de nuevo contacto</h3>
+        </div>
         <form id="creacion" class="form">
           <div class="mb-3">
             <label for="FirstName" class="form-label fw-bold">FirstName:</label>
@@ -44,10 +47,10 @@
           </div>
           <div class="mb-3">
             <label for="Email" class="form-label fw-bold">Email Address:</label>
-            <input type="text" id="EmailInput" class="form-control">
+            <input type="email" id="EmailInput" class="form-control">
           </div>
           <div class="d-flex align-items-center justify-content-center">
-            <input type="submit" class="btn btn-info form-control" value="Crear" />
+            <input type="submit" class="btn btn-success form-control" value="Crear" />
           </div>
         </form>
       </div>
@@ -73,6 +76,34 @@
       </tbody>
     </table>
 
+    <div class="collapse mt-3 mb-3" id="collapseUpdate">
+      <div class="card card-body">
+        <div class="d-flex align-items-end justify-content-end">
+          <button class="btn btn-danger btn-close float-end ms-5" data-bs-toggle="collapse" data-bs-target="#collapseUpdate" aria-expanded="false" aria-controls="collapseUpdate" ></button>
+        </div>        
+        <div class="card-title" mb-2>
+          <h3 class="text-center">Edicion de contacto</h3>          
+        </div>
+        <form id="edicion" class="form">
+          <input type="hidden" id="idUpdate" class="form-control" >
+          <div class="mb-3">
+            <label for="FirstName" class="form-label fw-bold">FirstName:</label>
+            <input type="text" id="FirstNameUpdate" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="LastName" class="form-label fw-bold">LastName:</label>
+            <input type="text" id="LastNameUpdate" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="Email" class="form-label fw-bold">Email Address:</label>
+            <input type="email" id="EmailUpdate" class="form-control">
+          </div>
+          <div class="d-flex align-items-center justify-content-center">
+            <input type="submit" class="btn btn-info form-control" value="Guardar" />
+          </div>
+        </form>
+      </div>
+    </div>
 
   </main>
 
