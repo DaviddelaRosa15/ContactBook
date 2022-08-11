@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <title>Agenda de contactos</title>
+  </head>
+
+  <body>
+    <main class="container">
+      <div class="mb-3">
+        <h1 class="text-center">Agenda de contactos</h1>
+      </div>
+
+      <div class="mb-0 d-flex align-items-end justify-content-end">
+        <button
+          class="btn btn-success my-3"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseExample"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        >
+          Nuevo contacto
+          <i class="fa fa-plus-circle"></i>
+        </button>
+      </div>
+
+      <div class="mb-3">
+        <form id="busqueda" class="form">
+          <div class="d-flex">
+            <input
+              type="text"
+              id="search"
+              class="form-control"
+              placeholder="Buscar por nombre"
+              onkeyup="searchContact()"
+            />
+            <button
+              class="btn btn-primary mx-3"
+              style="width: 100px"
+              onclick="searchContact()"
+            >
+              <i class="fa fa-search"></i>
+            </button>
+            <button
+              style="display: none"
+              id="btnClear"
+              class="btn btn-danger"
+              style="width: 100px"
+              type="button"
+              onclick="clearSearchInput()"
+            >
+              Limpiar
+            </button>
+            <!-- <input type="submit" class="btn btn-info ms-1" value="Buscar" /> -->
+          </div>
+        </form>
+      </div>
+
+      <div class="collapse mt-3 mb-3" id="collapseExample">
+        <div class="card card-body">
+          <div class="card-title" mb-2>
+            <h3 class="text-center">Creacion de nuevo contacto</h3>
+          </div>
+          <form id="creation" class="form">
+            <div class="mb-3">
+              <label for="FirstName" class="form-label fw-bold"
+                >FirstName:</label
+              >
+              <input type="text" id="FirstNameInput" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="LastName" class="form-label fw-bold">LastName:</label>
+              <input type="text" id="LastNameInput" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="Email" class="form-label fw-bold"
+                >Email Address:</label
+              >
+              <input type="email" id="EmailInput" class="form-control" />
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+              <input
+                type="submit"
+                class="btn btn-success form-control"
+                value="Crear"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="mb-2">
+        <h1>Mis contactos</h1>
+      </div>
+
+      <table class="table table-striped table-hover table-bordered text-center">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">FirstName</th>
+            <th scope="col">LastName</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Send Email</th>
+          </tr>
+        </thead>
+        <tbody id="collectionContact"></tbody>
+      </table>
+
+      <div class="collapse mt-3 mb-3" id="collapseUpdate">
+        <div class="card card-body">
+          <div class="d-flex align-items-end justify-content-end">
+            <button
+              class="btn btn-danger btn-close float-end ms-5"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseUpdate"
+              aria-expanded="false"
+              aria-controls="collapseUpdate"
+            ></button>
+          </div>
+          <div class="card-title" mb-2>
+            <h3 class="text-center">Edicion de contacto</h3>
+          </div>
+          <form id="edition" class="form">
+            <input type="hidden" id="idUpdate" class="form-control" />
+            <div class="mb-3">
+              <label for="FirstName" class="form-label fw-bold"
+                >FirstName:</label
+              >
+              <input type="text" id="FirstNameUpdate" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="LastName" class="form-label fw-bold">LastName:</label>
+              <input type="text" id="LastNameUpdate" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="Email" class="form-label fw-bold"
+                >Email Address:</label
+              >
+              <input type="email" id="EmailUpdate" class="form-control" />
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+              <input
+                type="submit"
+                class="btn btn-info form-control"
+                value="Guardar"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="JS/index.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.5/umd/popper.min.js"
+      integrity="sha512-8cU710tp3iH9RniUh6fq5zJsGnjLzOWLWdZqBMLtqaoZUA6AWIE34lwMB3ipUNiTBP5jEZKY95SfbNnQ8cCKvA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
