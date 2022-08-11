@@ -1,6 +1,5 @@
-let creacion = document.getElementById("creacion");
-let edicion = document.getElementById("edicion");
-let busqueda = document.getElementById("busqueda");
+let creation = document.getElementById("creation");
+let edition = document.getElementById("edition");
 let firstNameInput = document.getElementById("FirstNameInput");
 let lastNameInput = document.getElementById("LastNameInput");
 let emailInput = document.getElementById("EmailInput");
@@ -8,12 +7,12 @@ let idUpdate = document.getElementById("idUpdate");
 let firstNameUpdate = document.getElementById("FirstNameUpdate");
 let lastNameUpdate = document.getElementById("LastNameUpdate");
 let emailUpdate = document.getElementById("EmailUpdate");
-let listaContactos = document.getElementById("listaContactos");
+let collectionContact = document.getElementById("collectionContact");
 let idCount = 1;
-let arrayContactos = [];
+let arrayContacts = [];
 let searchInputValue = document.getElementById("search");
 
-let contacto = {
+let contact = {
   Id: 0,
   FirstName: "",
   LastName: "",
@@ -22,26 +21,26 @@ let contacto = {
 
 // Listado de contactos
 //--------------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", MostrarBD);
-function MostrarBD() {
-  listaContactos.innerHTML = "";
+document.addEventListener("DOMContentLoaded", ShowDB);
+function ShowDB() {
+  collectionContact.innerHTML = "";
 
-  arrayContactos = JSON.parse(localStorage.getItem("contactos"));
-  if (arrayContactos == null) {
-    arrayContactos = [];
-    listaContactos.innerHTML = `
+  arrayContacts = JSON.parse(localStorage.getItem("contacts"));
+  if (arrayContacts == null) {
+    arrayContacts = [];
+    collectionContact.innerHTML = `
             <tr>
                 <th scope="row" colspan="6">No hay contactos</th>
             </tr>            
         `;
   } else {
-    for (var i = 0; i < arrayContactos.length; i++) {
-      listaContactos.innerHTML += `
+    for (var i = 0; i < arrayContacts.length; i++) {
+      collectionContact.innerHTML += `
                 <tr class="contactRecord">
-                    <th scope="row" id="Id">${arrayContactos[i].Id}</th>
-                    <td id="FirstName">${arrayContactos[i].FirstName}</td>
-                    <td id="LastName">${arrayContactos[i].LastName}</td>
-                    <td id="Email">${arrayContactos[i].Email}</td>
+                    <th scope="row" id="Identity"><strong>${arrayContacts[i].Id}</strong></th>
+                    <td id="FirstName">${arrayContacts[i].FirstName}</td>
+                    <td id="LastName">${arrayContacts[i].LastName}</td>
+                    <td id="Email">${arrayContacts[i].Email}</td>
                     <td id="Update"><button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#collapseUpdate" aria-expanded="false" aria-controls="collapseUpdate"><i class="fa fa-pencil"></i></button></td>
                     <td id="Delete"><button class="btn btn-outline-danger"><i class="fa fa-trash"></i></button></td>
                     <td id="SendEmail"><button class="btn btn-outline-success"><i class="fa fa-paper-plane"></i></button></td>
@@ -54,12 +53,12 @@ function MostrarBD() {
 
 // Creación de contactos
 //--------------------------------------------------------------------
-creacion.onsubmit = function (e) {
+creation.onsubmit = function (e) {
   e.preventDefault();
-  agregarContacto();
-  console.log(arrayContactos);
-  reiniciarCreacion();
-  GuardarBD();
+  AddContact();
+  console.log(arrayContacts);
+  CleanCreation();
+  SaveDB();
 };
 
 const clearSearchInput = () => {
@@ -95,28 +94,28 @@ function sendEmail({ FirstName, LastName, Email }) {
     "mailto:" + Email + "?subject=" + subject + "&body=" + emailBody;
 }
 
-function agregarContacto() {
-  contacto = {
+function AddContact() {
+  contact = {
     Id: idCount,
     FirstName: firstNameInput.value,
     LastName: lastNameInput.value,
     Email: emailInput.value,
   };
   while (true) {
-    let exist = arrayContactos.find((item) => item.Id === contacto.Id);
+    let exist = arrayContacts.find((item) => item.Id === contact.Id);
     if (exist === undefined) {
-      arrayContactos.push(contacto);
-      console.log("Se agrego el contacto con el id: " + contacto.Id);
+      arrayContacts.push(contact);
+      console.log("Se agrego el contact con el id: " + contact.Id);
       idCount++;
       break;
     } else {
-      console.log(contacto.Id + " ya existe en la colección de verduras.");
-      contacto.Id += 1;
+      console.log(contact.Id + " ya existe en la colección de verduras.");
+      contact.Id += 1;
     }
   }
 }
 
-function reiniciarCreacion() {
+function CleanCreation() {
   firstNameInput.value = "";
   lastNameInput.value = "";
   emailInput.value = "";
@@ -125,39 +124,39 @@ function reiniciarCreacion() {
 
 // Edicion de contactos
 //--------------------------------------------------------------------
-edicion.onsubmit = function (e) {
+edition.onsubmit = function (e) {
   e.preventDefault();
-  editarContacto();
-  console.log(arrayContactos);
-  reiniciarEdicion();
-  GuardarBD();
+  EditContact();
+  console.log(arrayContacts);
+  CleanEdition();
+  SaveDB();
 };
 
-function editarDB(contacto) {
-  idUpdate.value = contacto.Id;
-  firstNameUpdate.value = contacto.FirstName;
-  lastNameUpdate.value = contacto.LastName;
-  emailUpdate.value = contacto.Email;
+function EditDB(contact) {
+  idUpdate.value = contact.Id;
+  firstNameUpdate.value = contact.FirstName;
+  lastNameUpdate.value = contact.LastName;
+  emailUpdate.value = contact.Email;
 }
 
-function editarContacto() {
-  contacto = {
+function EditContact() {
+  contact = {
     Id: idUpdate.value,
     FirstName: firstNameUpdate.value,
     LastName: lastNameUpdate.value,
     Email: emailUpdate.value,
   };
 
-  elementIndex = arrayContactos.findIndex((obj) => obj.Id == contacto.Id);
-  console.log("Before update: ", arrayContactos[elementIndex]);
-  arrayContactos[elementIndex].FirstName = contacto.FirstName;
-  arrayContactos[elementIndex].LastName = contacto.LastName;
-  arrayContactos[elementIndex].Email = contacto.Email;
-  console.log("After update: ", arrayContactos[elementIndex]);
-  GuardarBD();
+  elementIndex = arrayContacts.findIndex((obj) => obj.Id == contact.Id);
+  console.log("Before update: ", arrayContacts[elementIndex]);
+  arrayContacts[elementIndex].FirstName = contact.FirstName;
+  arrayContacts[elementIndex].LastName = contact.LastName;
+  arrayContacts[elementIndex].Email = contact.Email;
+  console.log("After update: ", arrayContacts[elementIndex]);
+  SaveDB();
 }
 
-function reiniciarEdicion() {
+function CleanEdition() {
   idUpdate.value = "";
   firstNameUpdate.value = "";
   lastNameUpdate.value = "";
@@ -167,38 +166,38 @@ function reiniciarEdicion() {
 
 // Manejando el localStorage de contactos
 //--------------------------------------------------------------------
-function GuardarBD() {
-  localStorage.setItem("contactos", JSON.stringify(arrayContactos));
-  MostrarBD();
+function SaveDB() {
+  localStorage.setItem("contacts", JSON.stringify(arrayContacts));
+  ShowDB();
 }
 //--------------------------------------------------------------------
 
 // Borrado de contactos
 //--------------------------------------------------------------------
-function eliminarDB(id) {
-  arrayContactos.forEach((elemento, index) => {
+function DeleteDB(id) {
+  arrayContacts.forEach((elemento, index) => {
     //console.log(elemento.tarea+"  "+index);
     if (elemento.Id == id) {
       //console.log(arrayTareas);
-      arrayContactos.splice(index, 1);
+      arrayContacts.splice(index, 1);
       //console.log(arrayTareas);
     }
   });
-  GuardarBD();
+  SaveDB();
 }
 //--------------------------------------------------------------------
 
-listaContactos.onclick = function (e) {
+collectionContact.onclick = function (e) {
   e.preventDefault();
   //console.log(e.target.classList[1]);
   if (
-    e.target.classList[1] === "btn-outline-primary" ||
-    e.target.classList[1] === "btn-outline-danger" ||
-    e.target.classList[1] === "btn-outline-success"
+    (e.target.classList[1] === "fa-pencil") || (e.target.classList[1] === "btn-outline-primary") ||
+    (e.target.classList[1] === "fa-trash") || (e.target.classList[1] === "btn-outline-danger") ||
+    (e.target.classList[1] === "fa-paper-plane") || (e.target.classList[1] === "btn-outline-success")
   ) {
     //console.log(e.target.classList[1]);
-    contacto = {
-      Id: e.target.parentNode.parentNode.querySelector("#Id").innerHTML,
+    contact = {
+      Id: e.target.parentNode.parentNode.querySelector("strong").innerHTML,
       FirstName:
         e.target.parentNode.parentNode.querySelector("#FirstName").innerHTML,
       LastName:
@@ -206,13 +205,13 @@ listaContactos.onclick = function (e) {
       Email: e.target.parentNode.parentNode.querySelector("#Email").innerHTML,
     };
     //console.log(nombreTarea);
-    if (e.target.classList[1] === "btn-outline-success") {
-      sendEmail(contacto);
+    if ((e.target.classList[1] === "fa-paper-plane") || (e.target.classList[1] === "btn-outline-success")) {
+      sendEmail(contact);
     }
-    if (e.target.classList[1] === "btn-outline-danger") {
-      eliminarDB(contacto.Id);
-    } else if (e.target.classList[1] === "btn-outline-primary") {
-      editarDB(contacto);
+    if ((e.target.classList[1] === "fa-trash") || (e.target.classList[1] === "btn-outline-danger")) {
+      DeleteDB(contact.Id);
+    } else if ((e.target.classList[1] === "fa-pencil") || (e.target.classList[1] === "btn-outline-primary")) {
+      EditDB(contact);
     }
   }
 };
