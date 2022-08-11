@@ -26,18 +26,18 @@ function ShowDB() {
   collectionContact.innerHTML = "";
 
   arrayContacts = JSON.parse(localStorage.getItem("contacts"));
-  if (arrayContacts == null) {
+  if (arrayContacts == null || arrayContacts.length == 0) {
     arrayContacts = [];
     collectionContact.innerHTML = `
             <tr>
-                <th scope="row" colspan="6">No hay contactos</th>
+                <th scope="row" colspan="7">No hay contactos</th>
             </tr>            
         `;
   } else {
     for (var i = 0; i < arrayContacts.length; i++) {
       collectionContact.innerHTML += `
                 <tr class="contactRecord">
-                    <th scope="row" id="Identity"><strong>${arrayContacts[i].Id}</strong></th>
+                    <th scope="row" id="Identity">${arrayContacts[i].Id}</th>
                     <td id="FirstName">${arrayContacts[i].FirstName}</td>
                     <td id="LastName">${arrayContacts[i].LastName}</td>
                     <td id="Email">${arrayContacts[i].Email}</td>
@@ -197,7 +197,7 @@ collectionContact.onclick = function (e) {
   ) {
     //console.log(e.target.classList[1]);
     contact = {
-      Id: e.target.parentNode.parentNode.querySelector("strong").innerHTML,
+      Id: e.target.parentNode.parentNode.querySelector("#Identity").innerHTML,
       FirstName:
         e.target.parentNode.parentNode.querySelector("#FirstName").innerHTML,
       LastName:
