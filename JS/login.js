@@ -23,3 +23,12 @@ function login(){
         document.getElementById('user').focus();
     }
 }
+
+function seePass(){
+    var seePassword = document.getElementById("pass");
+    if(seePassword.type == "password"){
+        seePassword.type = "text";
+    }else{
+        seePassword.type = "password";
+    }
+  }

@@ -95,6 +95,8 @@ function sendEmail({ FirstName, LastName, Email }) {
 }
 
 function AddContact() {
+
+
   contact = {
     Id: idCount,
     FirstName: firstNameInput.value,
@@ -102,7 +104,7 @@ function AddContact() {
     Email: emailInput.value,
   };
   while (true) {
-    let exist = arrayContacts.find((item) => item.Id === contact.Id);
+     let exist = arrayContacts.find((item) => item.Id === contact.Id);
     if (exist === undefined) {
       arrayContacts.push(contact);
       console.log("Se agrego el contact con el id: " + contact.Id);
@@ -111,9 +113,11 @@ function AddContact() {
     } else {
       console.log(contact.Id + " ya existe en la colección de verduras.");
       contact.Id += 1;
-    }
-  }
+   }
+  
 }
+}
+
 
 function CleanCreation() {
   firstNameInput.value = "";
