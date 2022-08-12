@@ -104,7 +104,7 @@ function AddContact() {
     Email: emailInput.value,
   };
   while (true) {
-     let exist = arrayContacts.find((item) => item.Id === contact.Id);
+    let exist = arrayContacts.find((item) => item.Id === contact.Id);
     if (exist === undefined) {
       arrayContacts.push(contact);
       console.log("Se agrego el contact con el id: " + contact.Id);
@@ -113,9 +113,9 @@ function AddContact() {
     } else {
       console.log(contact.Id + " ya existe en la colección de verduras.");
       contact.Id += 1;
-   }
-  
-}
+    }
+
+  }
 }
 
 
@@ -200,15 +200,24 @@ collectionContact.onclick = function (e) {
     (e.target.classList[1] === "fa-paper-plane") || (e.target.classList[1] === "btn-outline-success")
   ) {
     //console.log(e.target.classList[1]);
-    contact = {
-      Id: e.target.parentNode.parentNode.querySelector("#Identity").innerHTML,
-      FirstName:
-        e.target.parentNode.parentNode.querySelector("#FirstName").innerHTML,
-      LastName:
-        e.target.parentNode.parentNode.querySelector("#LastName").innerHTML,
-      Email: e.target.parentNode.parentNode.querySelector("#Email").innerHTML,
-    };
-    //console.log(nombreTarea);
+    if ((e.target.classList[1] === "btn-outline-primary") ||
+      (e.target.classList[1] === "btn-outline-danger") ||
+      (e.target.classList[1] === "btn-outline-success")) {
+      contact = {
+        Id: e.target.parentNode.parentNode.querySelector("#Identity").innerHTML,
+        FirstName: e.target.parentNode.parentNode.querySelector("#FirstName").innerHTML,
+        LastName: e.target.parentNode.parentNode.querySelector("#LastName").innerHTML,
+        Email: e.target.parentNode.parentNode.querySelector("#Email").innerHTML,
+      };
+    } else {
+      contact = {
+        Id: e.target.parentNode.parentNode.parentNode.querySelector("#Identity").innerHTML,
+        FirstName: e.target.parentNode.parentNode.parentNode.querySelector("#FirstName").innerHTML,
+        LastName: e.target.parentNode.parentNode.parentNode.querySelector("#LastName").innerHTML,
+        Email: e.target.parentNode.parentNode.parentNode.querySelector("#Email").innerHTML,
+      };
+    }
+
     if ((e.target.classList[1] === "fa-paper-plane") || (e.target.classList[1] === "btn-outline-success")) {
       sendEmail(contact);
     }
